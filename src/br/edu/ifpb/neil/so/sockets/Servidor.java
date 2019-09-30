@@ -39,46 +39,46 @@ public class Servidor {
 
             String mensagem = dis.readUTF();
             System.out.println(mensagem);
-            String[] msgSplitada = mensagem.split(" ");
+            String[] splitted = mensagem.split(" ");
 
-            if(msgSplitada.length<2) {
-                dos.writeUTF("Querendo quebrar o servidor? Favor verificar a sintaxe dos comandos");
+            if(splitted.length<2) {
+                dos.writeUTF("Tente Novamente, sintaxe incorreta");
             }else {
-                switch (msgSplitada[0]) {
+                switch (splitted[0]) {
                     case "readdir":
-                        String msg = server.readdir(msgSplitada[1]);
+                        String msg = server.readdir(splitted[1]);
                         if (msg != null) {
                             dos.writeUTF(msg);
                         }else {
-                            dos.writeUTF("Diretorio nao existente!");
+                            dos.writeUTF("Diretorio inexistente");
                         }
                         break;
 
                     case "rename":
-                        if (server.rename(msgSplitada[1], msgSplitada[2])) {
+                        if (server.rename(splitted[1], splitted[2])) {
                             dos.writeUTF("");
                         }else {
-                            dos.writeUTF("Diretorio ou arquivo nao existente!");
+                            dos.writeUTF("Diretório ou arquivo inexistente");
                         }
                         break;
 
                     case "create":
-                        if (server.create(msgSplitada[1])) {
+                        if (server.create(splitted[1])) {
                             dos.writeUTF("");
                         }else {
-                            dos.writeUTF("Arquivo ja existente!");
+                            dos.writeUTF("Arquivo já existe");
                         }
                         break;
 
                     case "remove":
-                        if (server.remove(msgSplitada[1])) {
+                        if (server.remove(splitted[1])) {
                             dos.writeUTF("");
                         }else {
-                            dos.writeUTF("Arquivo nao existente!");
+                            dos.writeUTF("Arquivo inexistente");
                         }
                         break;
                     default:
-                        dos.writeUTF(msgSplitada[0] + " nao eh um comando reconhecido!");
+                        dos.writeUTF(splitted[0] + " comando não reconhecido");
                         break;
                 }
             }
